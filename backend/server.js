@@ -55,21 +55,6 @@ app.post("/reservations", async (req, res) => {
   res.json({ message: "Rezerwacja dodana!" });
 });
 
-import { readFile } from "fs/promises";
-import path from "path";
-const __dirname = path.resolve();
-
-app.get("/init-db", async (req, res) => {
-  try {
-    const sql = await readFile(path.join(__dirname, "sql/schema.sql"), "utf8");
-    await pool.query(sql);
-    res.send("Baza danych została zainicjalizowana 🚀");
-  } catch (err) {
-    console.error(err);
-    res.status(500).send("Błąd przy inicjacji bazy");
-  }
-});
-
 app.listen(process.env.PORT, () =>
   console.log("Backend działa na porcie", process.env.PORT)
 );
