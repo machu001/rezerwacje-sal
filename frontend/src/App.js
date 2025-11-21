@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import RoomDetails from '../components/RoomDetails.jsx';
 import "./App.css";
 
 const API = "https://rezerwacje-sal-backend.onrender.com";
