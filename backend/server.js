@@ -55,6 +55,21 @@ app.post("/reservations", async (req, res) => {
   res.json({ message: "Rezerwacja dodana!" });
 });
 
+app.get("/reservations", async (req, res) => {
+  const { roomId, date } = req.query;
+  try {
+    const q = `
+      SELECT * FROM reservations 
+      WHERE room_id = $1 AND date = $2
+      ORDER BY start_time;
+    `;
+    const result = await pool.query(q, [roomId, date]);
+    res.json(result.rows);
+  } catch (error) {
+    res.status(500).json({ error: "Błąd pobierania rezerwacji" });
+  }
+});
+
 app.listen(process.env.PORT, () =>
   console.log("Backend działa na porcie", process.env.PORT)
 );
